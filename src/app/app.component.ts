@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {trigger , state , style , animate , transition, keyframes} from '@angular/animations';
+import {trigger , style , animate , transition, keyframes} from '@angular/animations';
 import * as c from 'xkcd-api';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import * as _ from 'lodash';
   styleUrls: ['./app.component.css'],
   animations: [
     trigger('changeState', [
-    transition('state1 <=> state2', animate('1000ms ease-in', keyframes([
+    transition('state1 <=> state2', animate('1000ms', keyframes([
       style({transform: 'rotateY(60deg)', offset: 0}),
       style({transform: 'rotateY(-60deg)',  offset: 0.5}),
       style({transform: 'rotateY(0deg)', offset: 1.0})
