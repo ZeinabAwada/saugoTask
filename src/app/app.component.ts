@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'proX';
   // global variables here
   images = [];
-  executed = false;
+  start = true;
   // constructor
   constructor() { }
   // Fetching the table buttons upon page load
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     if (JSON.parse(localStorage.getItem('images'))) {
       this.images = JSON.parse(localStorage.getItem('images'));
     }
-   // this.Prefetch();
+    this.Prefetch();
   }
   // functions below
     // set the comic picture to one selected by user
@@ -29,16 +29,13 @@ export class AppComponent implements OnInit {
   }
     // select the next random comic picture which already prefetched
   public Next() {
-     let Jresponse;
-    if (localStorage.getItem('prefetch')) {
+    let Jresponse;
     Jresponse = JSON.parse(localStorage.getItem('prefetch'));
-    console.log('jresp', Jresponse);
     const image = { title : Jresponse.title, date: new Date().toLocaleString() , img : Jresponse.img };
     this.images.push(image);
     localStorage.setItem('images', JSON.stringify(this.images));
     const pic = document.getElementById('comic') as HTMLImageElement;
     pic.src = Jresponse.img;
-  }
     this.Prefetch();
   }
     // prefetch the next comic picture and save it into a json called prefetch
@@ -46,7 +43,9 @@ export class AppComponent implements OnInit {
     c.random(function(error, response) {
       if (error) {
         console.error(error);
+        alert('Please check your connection and try again');
       } else {
+        console.log (response);
         localStorage.setItem('prefetch', JSON.stringify(response));
       }
     });

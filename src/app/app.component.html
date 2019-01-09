@@ -9,7 +9,7 @@
       </h2>
       <img id="comic" alt="XKCD Comic" src="http://www.userlogos.org/files/logos/euphonicnight/xkcd.png">
       <br>
-      <button class="btn btn-lg btn-primary" (click)="Next()">Next</button> 
+      <button class="btn btn-lg btn-primary" (click)="Next()" >Next</button>
   </div>
   <br>
   <div *ngIf="images.length">
@@ -24,7 +24,7 @@
   </div>
   <div class = 'margin'>
           <div *ngFor = "let ja of images"> 
-              <button (click)="set(ja.img)" type="button" class="btn btn-secondary" ngbPopover="{{ja.date}}" triggers="mouseenter:mouseleave" popoverTitle="Time Seen">
+              <button (click)="set(ja.img)" type="button" class="btn btn-info" ngbPopover="{{ja.date}}" triggers="mouseenter:mouseleave" popoverTitle="Time Seen">
                   {{ja.title}}
                 </button>
                 <br><br>
