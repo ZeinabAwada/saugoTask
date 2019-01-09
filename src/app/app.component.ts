@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import {trigger , state , style , animate , transition, keyframes} from '@angular/animations';
 import * as c from 'xkcd-api';
 import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('changeState', [
+    transition('state1 <=> state2', animate('1000ms ease-in', keyframes([
+      style({transform: 'rotateY(60deg)', offset: 0}),
+      style({transform: 'rotateY(-60deg)',  offset: 0.5}),
+      style({transform: 'rotateY(0deg)', offset: 1.0})
+    ]))),
+  ])]
 })
 export class AppComponent implements OnInit {
   title = 'proX';
   // global variables here
   images = [];
-  start = true;
+  currentState = 'state1';
   // constructor
   constructor() { }
   // Fetching the table buttons upon page load
@@ -36,6 +45,7 @@ export class AppComponent implements OnInit {
     localStorage.setItem('images', JSON.stringify(this.images));
     const pic = document.getElementById('comic') as HTMLImageElement;
     pic.src = Jresponse.img;
+    this.currentState = (this.currentState === 'state1' ? 'state2' : 'state1');
     this.Prefetch();
   }
     // prefetch the next comic picture and save it into a json called prefetch
