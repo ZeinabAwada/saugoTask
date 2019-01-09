@@ -1,0 +1,12 @@
+.image{
+    background-color: gray;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-size: cover; /* Resize the background image to cover the entire container */
+    min-width: 100%;
+    min-height: 100%;
+  }
+  .margin {
+      margin-left: 70px;
+  }

@@ -1,10 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as c from 'xkcd-api';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'pro';
+export class AppComponent implements OnInit {
+  title = 'proX';
+  // global variables here
+  images = [];
+  executed = false;
+  // constructor
+  constructor() { }
+  // Fetching the table buttons upon page load
+  ngOnInit() {
+    if (JSON.parse(localStorage.getItem('images'))) {
+      this.images = JSON.parse(localStorage.getItem('images'));
+    }
+   // this.Prefetch();
+  }
+  // functions below
+    // set the comic picture to one selected by user
+  public set (src) {
+    const pic = document.getElementById('comic') as HTMLImageElement;
+    pic.src = src;
+  }
+    // select the next random comic picture which already prefetched
+  public Next() {
+     let Jresponse;
+    if (localStorage.getItem('prefetch')) {
+    Jresponse = JSON.parse(localStorage.getItem('prefetch'));
+    console.log('jresp', Jresponse);
+    const image = { title : Jresponse.title, date: new Date().toLocaleString() , img : Jresponse.img };
+    this.images.push(image);
+    localStorage.setItem('images', JSON.stringify(this.images));
+    const pic = document.getElementById('comic') as HTMLImageElement;
+    pic.src = Jresponse.img;
+  }
+    this.Prefetch();
+  }
+    // prefetch the next comic picture and save it into a json called prefetch
+  public Prefetch() {
+    c.random(function(error, response) {
+      if (error) {
+        console.error(error);
+      } else {
+        localStorage.setItem('prefetch', JSON.stringify(response));
+      }
+    });
+
+  }
 }
